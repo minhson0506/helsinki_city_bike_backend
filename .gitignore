@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+# ignore content of uploads folder
+ uploads/-
+ # except one (empty) file to have the folder in version control
+ !uploads/.gitkeep
+
+ # ignore env file
+ .env
+
+ .DS_Store
