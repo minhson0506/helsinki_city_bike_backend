@@ -4,6 +4,9 @@ const express = require("express");
 const app = express();
 const port = 3001;
 
+const journeyFile = require("./routers/journeyRoute");
+const stationFile = require("./routers/stationRoute.js");
+
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -18,6 +21,9 @@ app.get("/info", (req, res) => {
   };
   res.json(info);
 });
+
+app.use("/journeyFile", journeyFile);
+app.use("/stationFile", stationFile);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
