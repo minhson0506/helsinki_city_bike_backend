@@ -13,6 +13,23 @@ const getAllStations = async () => {
 
 const insertStations = async (stations) => {
   try {
+    const [table] = await promisePool.execute(
+      `CREATE TABLE IF NOT EXISTS Station (
+        Fid int NOT NULL AUTO_INCREMENT,
+        Id varchar(255),
+        Nimi varchar(255),
+        Namn varchar(255),
+        Name varchar(255),
+        Osoite varchar(255),
+        Address varchar(255),
+        Kaupunki varchar(255),
+        Stad varchar(255),
+        Operator varchar(255),
+        Lapasiteet int,
+        x float,
+        y float,
+        PRIMARY KEY (Fid));`
+    );
     let itemQuery = "";
     stations.map((station) => {
       if (itemQuery != "")
