@@ -6,7 +6,11 @@ const promisePool = pool.promise();
 const fs = require("fs");
 const readline = require("readline");
 
-const { getAllStations, insertStations } = require("../models/stationModel");
+const {
+  getAllStations,
+  insertStations,
+  getStation,
+} = require("../models/stationModel");
 
 const station_list_get = async (req, res) => {
   const stations = await getAllStations();
@@ -18,9 +22,9 @@ const station_post = (req, res) => {
   res.send("post file station");
   console.log("file is ", req.file);
 
-  var index = 0;
-  var array = [];
-  var read = readline.createInterface({
+  let index = 0;
+  let array = [];
+  let read = readline.createInterface({
     input: fs.createReadStream(req.file.path),
   });
 
@@ -28,7 +32,7 @@ const station_post = (req, res) => {
     .on("line", function (text) {
       index++;
       if (index > 1) {
-        var station = text.split(",");
+        let station = text.split(",");
         station = station.map((element) => {
           if (element.indexOf("'") > -1) {
             return element.replace("'", "''");
@@ -55,7 +59,14 @@ const station_post = (req, res) => {
     });
 };
 
+const station_by_id = async (req, res) => {
+  const station = await getStation(req.params.id);
+  console.log("reponse station", station);
+  res.json(station);
+};
+
 module.exports = {
   station_list_get,
   station_post,
+  station_by_id,
 };

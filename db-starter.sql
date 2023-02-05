@@ -2,8 +2,10 @@ CREATE TABLE IF NOT EXISTS `Journey` (
     `Id` int NOT NULL AUTO_INCREMENT,
     `Departure` datetime,
     `Return_` datetime,
-    `Departure_station` varchar(255),
+    `Departure_station` varchar(255),    
+    `Departure_station_name` varchar(255),
     `Return_station` varchar(255),
+    `Return_station_name` varchar(255),
     `Distance` int,
     `Duration` int,
     PRIMARY KEY (Id)

@@ -5,7 +5,6 @@ const promisePool = pool.promise();
 const getAllStations = async () => {
   try {
     const [rows] = await promisePool.query("SELECT * FROM Station");
-    console.log("data count is ", rows.length);
     return rows;
   } catch (e) {
     console.error("error", e.message);
@@ -46,7 +45,20 @@ const insertStations = async (stations) => {
   }
 };
 
+const getStation = async (id) => {
+  try {
+    const [rows] = await promisePool.query(
+      "SELECT * FROM Station WHERE Id= ?",
+      [id]
+    );
+    return rows;
+  } catch (e) {
+    console.error("error", e.message);
+  }
+};
+
 module.exports = {
   getAllStations,
   insertStations,
+  getStation,
 };

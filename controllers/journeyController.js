@@ -13,8 +13,12 @@ const {
 } = require("../models/journeyModel");
 
 const journey_list_get = async (req, res) => {
-  const journeys = await getAllJourneys();
-  res.json(journeys);
+  try {
+    const journeys = await getAllJourneys();
+    res.json(journeys);
+  } catch (error) {
+    console.log("error when get all journeys");
+  }
 };
 
 const journey_post = (req, res) => {
@@ -33,7 +37,12 @@ const journey_post = (req, res) => {
     .on("line", function (text) {
       index++;
       if (index > 1) {
-        const journey = text.split(",");
+        let journey = text.split(",");
+        journey = journey.map((element) => {
+          if (element.indexOf("'") > -1) {
+            return element.replace("'", "''");
+          } else return element;
+        });
         if (parseInt(journey[6]) > 10 && parseInt(journey[7]) > 10) {
           array.push(journey);
         }

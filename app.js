@@ -1,12 +1,14 @@
 "use strict";
 
 const express = require("express");
+var cors = require('cors')
 const app = express();
 const port = 3001;
 
 const journeyFile = require("./routers/journeyRoute");
 const stationFile = require("./routers/stationRoute.js");
 
+app.use(cors())
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -22,8 +24,8 @@ app.get("/info", (req, res) => {
   res.json(info);
 });
 
-app.use("/journeyFile", journeyFile);
-app.use("/stationFile", stationFile);
+app.use("/journey", journeyFile);
+app.use("/station", stationFile);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
